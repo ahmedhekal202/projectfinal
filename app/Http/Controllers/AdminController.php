@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\AdminModel;
+use App\Http\Requests\AdminRequest;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller 
 {
@@ -14,7 +15,7 @@ class AdminController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function create()
     {
         return view('admins.pages.admin.loginadmin');
     }
@@ -23,26 +24,16 @@ class AdminController extends Controller
      * Handle an authentication attempt for admin user.
      *
      */
-    public function adminAuthentication(Request $request)
+    public function adminAuthentication(AdminRequest $request)
     {
+        $request->authenticate();
 
-    //     if (Auth::attempt(array('email' => $request->email, 'password' => $request->password))){
-    //         return "success";
-    //     }else{
-    //         return "Wrong Credentials";
-    //     }
-    //     die;
-    // }
-    $credentials = $request->only('email', 'password');
- 
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->intended('dashboardadmin');
-        }
-        else{
-            return  redirect()->intended('adminlogin');
-        }
+        $request->session()->regenerate();
+
+        return redirect()->intended(RouteServiceProvider::HOME);
+
+        
+    }
     
     
-}
 }

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\coursesControllere;
+use App\Http\Controllers\courseController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,17 +33,15 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::group(['nammespace'=>'admin'],function(){
-Route::get('loginadmin',[AdminController::class,'index'])->name('adminlogin');    
+Route::get('loginadmin',[AdminController::class,'create'])->name('adminlogin');    
 Route::post('store',[AdminController::class,'adminAuthentication'])->name('adminstore');
-route::get('/dashboardadmin',function(){
-    return view('admins.pages.admin.dashboardadmin');
 
-})->name('dashboardadmin');
-// Route::get()    
+  
 
 
 });
 
 
 //courses
-Route::get('courses',[coursesControllere::class,'index'])->name('courses');
+Route::get('/courses',[courseController::class,'create']);
+Route::post('/coursestore',[courseController::class,'store'])->name('coursestore');

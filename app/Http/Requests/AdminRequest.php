@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\AdminModel;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Auth\Events\Lockout;
 // use Illuminate\Foundation\Http\FormRequest;
@@ -16,6 +16,7 @@ class AdminRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
+    // use User;
     public function authorize(): bool
     {
         return true;
@@ -37,7 +38,7 @@ class AdminRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember')) ||  ! Auth::user()->is_admin) {
+        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember')) ||  ! Auth::user()->is_admin=1) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

@@ -29,6 +29,12 @@ return [
     */
 
     'disks' => [
+        'media' => [
+            'driver' => 'local',
+            'root' => public_path('media'),
+            'url'=>env('APP_URL').'/media' ,
+            
+        ],
 
         'local' => [
             'driver' => 'local',
@@ -44,6 +50,7 @@ return [
             'throw' => false,
         ],
 
+        
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

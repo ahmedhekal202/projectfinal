@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\courseController;
+use App\Http\Controllers\CategorieController;
+
+use App\Http\Controllers\itemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,16 +34,16 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::group(['nammespace'=>'admin'],function(){
-Route::get('loginadmin',[AdminController::class,'create'])->name('adminlogin');    
-Route::post('store',[AdminController::class,'adminAuthentication'])->name('adminstore');
-
-  
 
 
-});
+//   Categorie
+Route::get('categorie',[CategorieController::class, 'index'])->name('categorie');
+Route::get('addCategorie',[CategorieController::class, 'create'])->name('addCategorie');
+Route::post('storeCategorie',[CategorieController::class, 'store'])->name('storeCategories');
+Route::get('showCategorie/{id}',[CategorieController::class, 'show'])->name('showCategories');
 
 
-//courses
-Route::get('/courses',[courseController::class,'create']);
-Route::post('/coursestore',[courseController::class,'store'])->name('coursestore');
+//items
+Route::get('item',[itemController::class, 'index'])->name('item');
+Route::get('additem',[itemController::class, 'create'])->name('additem');
+Route::post('storeitem',[itemController::class, 'store'])->name('storeitem');
